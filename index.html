@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учебная группа ИРГУПС</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --secondary: #81c784;
+            --accent: #a5d6a7;
+            --background: #0d1b0f;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #c8e6c9;
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(46, 125, 50, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(46, 125, 50, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(129, 199, 132, 0.03) 0%, transparent 50%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Логотип и верхняя панель */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0 50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(transparent, var(--accent), transparent 30%);
+            animation: rotate 10s linear infinite;
+        }
+        
+        .logo-inner {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-light);
+            letter-spacing: 2px;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .university-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .group-name {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .user-profile:hover {
+            transform: translateY(-3px);
+            border-color: rgba(76, 175, 80, 0.4);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .user-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        /* Основной контент */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 5;
+            padding: 40px 0 80px;
+        }
+        
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 80px;
+            max-width: 800px;
+        }
+        
+        .welcome-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Круговая навигация */
+        .circle-navigation {
+            position: relative;
+            width: 700px;
+            height: 700px;
+            margin: 0 auto;
+        }
+        
+        .center-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(129, 199, 132, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 0 60px rgba(76, 175, 80, 0.15),
+                inset 0 0 40px rgba(76, 175, 80, 0.1);
+            z-index: 5;
+            transition: var(--transition);
+        }
+        
+        .center-logo:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 
+                0 0 80px rgba(76, 175, 80, 0.25),
+                inset 0 0 40px rgba(76, 175, 80, 0.15);
+            border-color: rgba(129, 199, 132, 0.5);
+        }
+        
+        .center-logo-icon {
+            font-size: 42px;
+            color: var(--primary-light);
+            margin-bottom: 10px;
+        }
+        
+        .center-logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: center;
+            line-height: 1.3;
+        }
+        
+        .nav-item {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+            width: 160px;
+            z-index: 6;
+            transform: translate(-50%, -50%);
+        }
+        
+        .nav-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(129, 199, 132, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(129, 199, 132, 0.1));
+            border-radius: 50%;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .nav-item:hover .nav-circle::before {
+            opacity: 1;
+        }
+        
+        .nav-item:hover .nav-circle {
+            transform: scale(1.15);
+            border-color: rgba(129, 199, 132, 0.5);
+            box-shadow: 
+                0 0 40px rgba(76, 175, 80, 0.3),
+                inset 0 0 30px rgba(76, 175, 80, 0.1);
+        }
+        
+        .nav-icon {
+            font-size: 52px;
+            color: var(--primary-light);
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+        }
+        
+        .nav-item:hover .nav-icon {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        .nav-label {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            opacity: 0;
+            height: 0;
+            transition: var(--transition);
+            color: var(--text-primary);
+            background: rgba(27, 94, 32, 0.8);
+            padding: 10px 20px;
+            border-radius: 30px;
+            white-space: nowrap;
+            position: absolute;
+            top: 160px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(129, 199, 132, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-item:hover .nav-label {
+            opacity: 1;
+            height: auto;
+        }
+        
+        /* Цветовые акценты для элементов */
+        .nav-item.schedule .nav-circle { border-color: rgba(76, 175, 80, 0.4); }
+        .nav-item.profile .nav-circle { border-color: rgba(76, 175, 80, 0.4); }
+        .nav-item.group .nav-circle { border-color: rgba(76, 175, 80, 0.4); }
+        .nav-item.support .nav-circle { border-color: rgba(76, 175, 80, 0.4); }
+        
+        .nav-item.schedule .nav-icon { color: #4caf50; }
+        .nav-item.profile .nav-icon { color: #66bb6a; }
+        .nav-item.group .nav-icon { color: #81c784; }
+        .nav-item.support .nav-icon { color: #a5d6a7; }
+        
+        /* Позиционирование элементов по кругу */
+        #nav-schedule {
+            top: 50%;
+            left: 50%;
+            margin-top: -280px;
+            margin-left: 0;
+        }
+        
+        #nav-profile {
+            top: 50%;
+            left: 50%;
+            margin-top: 0;
+            margin-left: 280px;
+        }
+        
+        #nav-group {
+            top: 50%;
+            left: 50%;
+            margin-top: 280px;
+            margin-left: 0;
+        }
+        
+        #nav-support {
+            top: 50%;
+            left: 50%;
+            margin-top: 0;
+            margin-left: -280px;
+        }
+        
+        /* Соединительные линии */
+        .connection-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 0;
+            background: linear-gradient(to bottom, transparent, var(--primary-light), transparent);
+            transform-origin: top center;
+            z-index: 1;
+            opacity: 0.5;
+        }
+        
+        #line1 { transform: rotate(90deg) translateY(-50%); }
+        #line2 { transform: rotate(0deg) translateY(-50%); }
+        #line3 { transform: rotate(-90deg) translateY(-50%); }
+        #line4 { transform: rotate(180deg) translateY(-50%); }
+        
+        /* Информационная панель */
+        .info-panel {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 100px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid rgba(129, 199, 132, 0.2);
+            box-shadow: var(--shadow);
+            max-width: 1000px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            padding: 0 20px;
+        }
+        
+        .info-item:not(:last-child) {
+            border-right: 1px solid rgba(129, 199, 132, 0.2);
+        }
+        
+        .info-icon {
+            font-size: 36px;
+            color: var(--primary-light);
+            margin-bottom: 15px;
+        }
+        
+        .info-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            margin-bottom: 5px;
+        }
+        
+        .info-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        /* Футер */
+        .footer {
+            text-align: center;
+            padding: 40px 0 30px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(129, 199, 132, 0.1);
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        /* Анимации */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulse {
+            animation: pulse 3s infinite;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .circle-navigation {
+                width: 600px;
+                height: 600px;
+            }
+            
+            #nav-schedule { margin-top: -240px; }
+            #nav-profile { margin-left: 240px; }
+            #nav-group { margin-top: 240px; }
+            #nav-support { margin-left: -240px; }
+            
+            .nav-circle {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .nav-icon {
+                font-size: 44px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .circle-navigation {
+                width: 500px;
+                height: 500px;
+            }
+            
+            #nav-schedule { margin-top: -200px; }
+            #nav-profile { margin-left: 200px; }
+            #nav-group { margin-top: 200px; }
+            #nav-support { margin-left: -200px; }
+            
+            .nav-circle {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .nav-icon {
+                font-size: 36px;
+            }
+            
+            .center-logo {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .welcome-title {
+                font-size: 2.5rem;
+            }
+            
+            .info-panel {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .info-item:not(:last-child) {
+                border-right: none;
+                border-bottom: 1px solid rgba(129, 199, 132, 0.2);
+                padding-bottom: 30px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .circle-navigation {
+                width: 400px;
+                height: 400px;
+            }
+            
+            #nav-schedule { margin-top: -160px; }
+            #nav-profile { margin-left: 160px; }
+            #nav-group { margin-top: 160px; }
+            #nav-support { margin-left: -160px; }
+            
+            .nav-circle {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .nav-icon {
+                font-size: 32px;
+            }
+            
+            .center-logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .center-logo-text {
+                font-size: 1.1rem;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Эффекты частиц */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--primary-light);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Частицы для фона -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <!-- Шапка с логотипом ИРГУПС -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-text">
+                    <h1 class="university-name">Колледж ИРГУПС</h1>
+                    <p class="group-name">Учебная группа ХУЙ-26-6 • Факультет свастики</p>
+                </div>
+            </div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-name">Павел Дура</div>
+            </div>
+        </header>
+        
+        <!-- Основной контент -->
+        <main class="main-content">
+            <section class="welcome-section">
+                <h2 class="welcome-title floating">Добро пожаловать</h2>
+            </section>
+            
+            <!-- Круговая навигация -->
+            <div class="circle-navigation">
+                <!-- Соединительные линии -->
+                <div class="connection-line" id="line1"></div>
+                <div class="connection-line" id="line2"></div>
+                <div class="connection-line" id="line3"></div>
+                <div class="connection-line" id="line4"></div>
+                
+                <!-- Центральный логотип -->
+                <div class="center-logo">
+                    <div class="center-logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="center-logo-text">Навигация</div>
+                </div>
+                
+                <!-- Элементы навигации -->
+                <a href="#schedule" class="nav-item schedule" id="nav-schedule">
+                    <div class="nav-circle">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="nav-label">Расписание</div>
+                </a>
+                
+                <a href="#profile" class="nav-item profile" id="nav-profile">
+                    <div class="nav-circle">
+                        <i class="nav-icon fas fa-user-circle"></i>
+                    </div>
+                    <div class="nav-label">Мой профиль</div>
+                </a>
+                
+                <a href="#group" class="nav-item group" id="nav-group">
+                    <div class="nav-circle">
+                        <i class="nav-icon fas fa-users"></i>
+                    </div>
+                    <div class="nav-label">Список группы</div>
+                </a>
+                
+                <a href="#support" class="nav-item support" id="nav-support">
+                    <div class="nav-circle">
+                        <i class="nav-icon fas fa-question-circle"></i>
+                    </div>
+                    <div class="nav-label">Поддержка</div>
+                </a>
+            </div>
+            
+            <!-- Информационная панель -->
+            <div class="info-panel">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="info-number">52</div>
+                    <div class="info-text">Дисциплин в семестре</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="info-number">52</div>
+                    <div class="info-text">Студента в группе</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="info-number">52</div>
+                    <div class="info-text">Преподавателей</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon pulse">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-number">52</div>
+                    <div class="info-text">Дней до сессии</div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Футер -->
+        <footer class="footer">
+            <p>© 2026 Сайт не имеет официального отношения к колледжу и разрабатывается на добровольной основе. Все права защищены.</p>
+            <p>by SKETH</p>
+            
+        </footer>
+    </div>
+
+    <script>
+        // Создание частиц для фона
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Случайные параметры
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const opacity = Math.random() * 0.1 + 0.05;
+                const delay = Math.random() * 20;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.opacity = opacity;
+                particle.style.animationDelay = `${delay}s`;
+                
+                // Анимация плавающих частиц
+                particle.style.animation = `float ${Math.random() * 20 + 10}s ease-in-out infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Анимация соединительных линий
+        function animateLines() {
+            const lines = document.querySelectorAll('.connection-line');
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.transition = 'height 1.5s cubic-bezier(0.215, 0.61, 0.355, 1)';
+                    line.style.height = '280px';
+                }, index * 300);
+            });
+        }
+        
+        // Анимация элементов навигации
+        function animateNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 800 + index * 300);
+            });
+        }
+        
+        // Обработка кликов по навигации
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const label = this.querySelector('.nav-label').textContent;
+                
+                // Анимация клика
+                this.style.transform = 'translate(-50%, -50%) scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 200);
+                
+                // В реальном проекте здесь будет переход на нужную страницу
+                // Сейчас показываем уведомление
+                const messages = {
+                    'Расписание': 'Переход к расписанию занятий и экзаменов',
+                    'Мой профиль': 'Переход к личному кабинету студента',
+                    'Список группы': 'Переход к списку студентов группы с контактами',
+                    'Поддержка': 'Переход в раздел технической поддержки и FAQ'
+                };
+                
+                // Создаем красивое уведомление
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 30px;
+                    right: 30px;
+                    background: rgba(27, 94, 32, 0.9);
+                    color: white;
+                    padding: 20px 30px;
+                    border-radius: 15px;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(129, 199, 132, 0.3);
+                    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+                    z-index: 1000;
+                    font-weight: 500;
+                    transform: translateX(400px);
+                    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                `;
+                notification.textContent = `${messages[label]}...`;
+                document.body.appendChild(notification);
+                
+                // Показываем уведомление
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 10);
+                
+                // Убираем уведомление через 3 секунды
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(400px)';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 500);
+                }, 3000);
+            });
+        });
+        
+        // Обработка клика по профилю пользователя
+        document.querySelector('.user-profile').addEventListener('click', function() {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+            
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: rgba(27, 94, 32, 0.9);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 15px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(129, 199, 132, 0.3);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                font-weight: 500;
+                transform: translateX(400px);
+                transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            `;
+            notification.textContent = 'Переход в личный кабинет...';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 2500);
+        });
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Запуск анимаций с задержкой
+            setTimeout(() => {
+                animateLines();
+            }, 500);
+            
+            setTimeout(() => {
+                animateNavigation();
+            }, 1200);
+            
+            // Обновляем счетчик дней до сессии каждую секунду
+            function updateDaysCounter() {
+                const targetDate = new Date();
+                targetDate.setDate(targetDate.getDate() + 15); // 15 дней от текущей даты
+                
+                const now = new Date();
+                const diffTime = targetDate - now;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                const daysElement = document.querySelector('.info-number:nth-child(4)');
+                if (daysElement && diffDays >= 0) {
+                    daysElement.textContent = diffDays;
+                }
+            }
+            
+            // Обновляем каждую минуту
+            updateDaysCounter();
+            setInterval(updateDaysCounter, 60000);
+            
+            // Плавное появление страницы
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 1s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
